@@ -1,0 +1,74 @@
+<app-add-btn [backGroundColor]="'btn-outline-primary'" [route]="'/dashboard/manager-tools/user-information/new-user'" [content]="'breadcrumb.AddUser'"></app-add-btn>
+
+<div class="prim-table ">
+    <p-table #dt [value]="usersList" [paginator]="true" [(rows)]="rows" [(first)]="first" sortMode="multiple">
+
+        <!-- Table Caption -->
+        <ng-template pTemplate="caption">
+
+            <app-table-caption [filterFormControls]="['Identity Number','shared.User Name','state','course']"></app-table-caption>
+
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">
+                    <p-sortIcon field="name"></p-sortIcon>{{'shared.Full Name'|translate}}</th>
+                <th pSortableColumn="id">
+                    <p-sortIcon field="id"></p-sortIcon>{{'shared.email'|translate}}</th>
+                <th pSortableColumn="phoneno">
+                    <p-sortIcon field="phoneno"></p-sortIcon>{{'shared.Identity Number'|translate}}</th>
+                <th pSortableColumn="gender">
+                    <p-sortIcon field="gender"></p-sortIcon>{{'shared.phoneNumber'|translate}}</th>
+                <th pSortableColumn="gender">
+                    <p-sortIcon field="gender"></p-sortIcon>{{'shared.Created Date'|translate}}</th>
+                <th pSortableColumn="nationality">
+                    <p-sortIcon field="nationality"></p-sortIcon>{{'dashboard.UserInformation.User Status'|translate}}</th>
+                <th pSortableColumn="nationality" class="actions"></th>
+
+
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-e>
+            <tr>
+                <td>{{e.fullName|translate}}</td>
+                <td>{{e.email|translate}}</td>
+                <td>{{e.id|translate}}</td>
+                <td>{{e.phoneNumber|translate}}</td>
+                <td>12/2/2022</td>
+                <td>
+                    <div class="d-flex align-items-center gap-4">
+                        <<<<<<< HEAD <div [ngClass]="e.userStatus=='Active'?'alerting success':'alerting danger'">{{e.userStatus|translate}}</div>
+
+                    =======
+                    <div [ngClass]="e.userStatus=='فعال'?'alerting success':'alerting danger'">{{e.userStatus|translate}}</div>
+                    >>>>>>> 2615efe3e05ba7719bcea88d83852a7dfe00d4d8
+</div>
+</td>
+
+<td class="edit">
+    <button routerLink="/dashboard/manager-tools/user-information/edit-user/{{e.id}}">
+                      {{'shared.edit'|translate}}   <img  src="assets/images/shared/arrow.svg" alt="">
+                   </button>
+</td>
+</tr>
+</ng-template>
+
+<ng-template pTemplate="emptymessage" let-columns>
+
+    <tr>
+        <td [attr.colspan]="20" [att.rowspan]="10">
+            <app-informative-block title="{{'emptyList.Users List is empty' |translate}}" src="assets/images/empty-list/empty-list.svg"></app-informative-block>
+        </td>
+
+    </tr>
+
+</ng-template>
+</p-table>
+
+<div>
+    <app-pagination [totalItems]="usersList.length" (paginationChanged)="onTableDataChange($event)"></app-pagination>
+</div>
+
+</div>

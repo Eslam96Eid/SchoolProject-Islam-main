@@ -1,0 +1,91 @@
+
+
+  
+
+ 
+  
+   
+ <app-add-btn [backGroundColor]="'btn-primary'" [route]="'/dashboard/educational-settings/annual-holiday/new-holiday'" [content]="'dashboard.AnnualHoliday.Define Annual Holidays Calendar'"></app-add-btn>
+  
+    <div class="prim-table ">
+    <p-table  #dt [value]="annualHolidayList"  [paginator]="true" [(rows)]="rows" [(first)]="first"    sortMode="multiple"   >
+     
+        <!-- Table Caption -->
+    <ng-template pTemplate="caption">
+
+        <app-table-caption [filterFormControls]="['dashboard.AnnualHoliday.Holiday Name','dashboard.AnnualHoliday.Date','dashboard.AnnualHoliday.flexibilityStatus']"></app-table-caption>
+    
+    </ng-template>
+
+       
+      
+      
+      <ng-template pTemplate="header" >
+            <tr  >
+              <th  pSortableColumn="name" ><p-sortIcon  field="name" ></p-sortIcon>{{'dashboard.AnnualHoliday.Annual Calender Name'|translate}}</th>
+              <th   pSortableColumn="id"><p-sortIcon  field="id"></p-sortIcon>{{'dashboard.AnnualHoliday.Year'|translate}}</th>
+              <th   pSortableColumn="id"><p-sortIcon  field="id"></p-sortIcon>{{'dashboard.AnnualHoliday.Holiday Name'|translate}}</th>
+              <th  pSortableColumn="phoneno"><p-sortIcon field="phoneno"></p-sortIcon>{{'dashboard.AnnualHoliday.curriculum'|translate}}</th>
+              <th   pSortableColumn="email"><p-sortIcon  field="email"></p-sortIcon>{{'dashboard.AnnualHoliday.Date'|translate}}</th>
+              <th   pSortableColumn="gender"><p-sortIcon field="gender"></p-sortIcon>{{'shared.Created Date'|translate}}</th>
+              <!-- <th   pSortableColumn="nationality"><p-sortIcon field="nationality"></p-sortIcon>{{'dashboard.AnnualHoliday.flexibilityStatus'|translate}}</th> -->
+              <th   pSortableColumn="edit" class="actions"></th>
+            
+
+              
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-e  >
+            <tr  >
+                <td  >{{e.smester|translate}}</td>
+                <td   >{{e.year|translate}}</td>
+                <td   >{{e.holiday.name|translate}}</td>
+                <td  >{{e.holiday.curriculum|translate}}</td>
+                <td   >{{'shared.From'|translate}} {{e.holiday.dateFrom|translate}} - {{'shared.To'|translate}} {{e.holiday.dateTo|translate}}</td>
+                <td  >{{e.createdDate|translate}}</td>
+                <!-- <td>
+                    <div class="d-flex align-items-center gap-4">
+                       
+                        <div [ngClass]="e.holiday.flexibilityStatus=='مرنة'?'alerting success':'alerting danger'">{{e.holiday.flexibilityStatus|translate}}</div>
+                        
+                    </div>
+                </td> -->
+              
+        
+                   
+                <td class="edit"> 
+                        <button  routerLink="/dashboard/educational-settings/annual-holiday/edit-holiday/{{e.id}}">
+                            {{'shared.edit'|translate}}   <img  src="assets/images/shared/arrow.svg" alt="">
+                         </button>
+                </td>
+                
+              
+                
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage" let-columns>
+
+            <tr>
+
+                <td [attr.colspan]="20" [att.rowspan]="10">
+
+                    <app-informative-block title="{{'emptyList.AnnualHoliday List is empty' |translate}}" src="assets/images/empty-list/empty-list.svg"></app-informative-block>
+
+                </td>
+
+            </tr>
+
+          </ng-template>
+    </p-table>
+  
+  
+    <div >
+        <app-pagination [totalItems]="annualHolidayList.length" (paginationChanged)="onTableDataChange($event)"></app-pagination>
+    </div>
+    
+    </div>
+
+
+
+

@@ -1,0 +1,66 @@
+
+ <app-add-btn [backGroundColor]="'btn-outline-primary'" [route]="'/dashboard/manager-tools/indexes/new-index'" [content]="'dashboard.Indexes.Add Item'"></app-add-btn>
+    <div class="prim-table ">
+    <p-table  #dt [value]="indexesList" [paginator]="true" [(rows)]="rows" [(first)]="first"    sortMode="multiple"   >
+     
+           <!-- Table Caption -->
+           <ng-template pTemplate="caption">
+
+                    <app-table-caption [filterFormControls]="['dashboard.AnnualHoliday.Holiday Name','dashboard.AnnualHoliday.Date','dashboard.AnnualHoliday.flexibilityStatus']"></app-table-caption>
+        
+           </ng-template>
+      
+      
+      <ng-template pTemplate="header" >
+            <tr  >
+              <th   pSortableColumn="Type" ><p-sortIcon  field="Type" ></p-sortIcon>{{'dashboard.Indexes.List Type'|translate}}</th>
+              <th  class="mediumrow"  pSortableColumn="Name"><p-sortIcon  field="Name"></p-sortIcon>{{'dashboard.Indexes.Index Name'|translate}}</th>
+              <th  class="longrow"  pSortableColumn="Status"><p-sortIcon field="Status"></p-sortIcon>{{'dashboard.Indexes.Index Status'|translate}}</th>
+              <th   pSortableColumn="nationality" class="actions "></th>
+            
+
+              
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-e  >
+            <tr  >
+                <td  >{{e.ListType|translate}}</td>
+                <td  class="mediumrow" >{{e.indexName|translate}}</td>
+                <td  Class="longrow" >
+                    <div class="d-flex align-items-center gap-4">
+                       
+                        <div [ngClass]="e.indexStatus=='فعال'?'alerting success':'alerting danger'">{{e.indexStatus|translate}}</div>
+                        
+                    </div>
+                
+                </td>
+                <td class="edit"> 
+                    <button  routerLink="/dashboard/manager-tools/indexes/new-index">
+                        {{'shared.edit'|translate}}   <img  src="assets/images/shared/arrow.svg" alt="">
+                     </button>
+                </td>
+            
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage" let-columns>
+
+            <tr>
+    
+                <td [attr.colspan]="20" [att.rowspan]="10">
+    
+                    <app-informative-block title="{{'emptyList.Indexes List is empty' |translate}}" src="assets/images/empty-list/empty-list.svg"></app-informative-block>
+    
+                </td>
+    
+            </tr>
+    
+          </ng-template>
+    </p-table>
+  
+    <div >
+        <app-pagination [totalItems]="indexesList.length" (paginationChanged)="onTableDataChange($event)"></app-pagination>
+    </div>
+    
+    </div>
+ 
