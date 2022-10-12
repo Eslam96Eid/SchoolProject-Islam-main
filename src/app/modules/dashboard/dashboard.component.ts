@@ -4,14 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { RouteListenrService } from 'src/app/shared/services/route-listenr/route-listenr.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, tap } from 'rxjs';
+import { routeSlide } from 'src/app/shared/animation/animation';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  animations:[
-    //routeSlide
-  ]
+  animations:[routeSlide]
 })
 export class DashboardComponent implements OnInit {
 hideBackGroundImage:boolean=false;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-//import { routeSlide } from '../shared/animation/animation';
+import { routeSlide } from '../shared/animation/animation';
 import { LayoutService } from './services/layout/layout.service';
 
 

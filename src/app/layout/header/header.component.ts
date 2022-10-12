@@ -5,7 +5,7 @@ import { filter, fromEvent } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { TranslationService } from 'src/app/core/services/translation.service';
 import { UserService } from 'src/app/core/services/user.service';
-//import { slide } from 'src/app/shared/animation/animation';
+import { slide } from 'src/app/shared/animation/animation';
 import { DashboardPanalEnums } from 'src/app/shared/enums/dashboard-panal/dashboard-panal.enum';
 import { RouteListenrService } from 'src/app/shared/services/route-listenr/route-listenr.service';
 import { LayoutService } from '../services/layout/layout.service';
@@ -20,8 +20,7 @@ interface MenuItem{
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  animations:[//slide
-]
+  animations:[slide]
 })
 export class HeaderComponent implements OnInit {
   paddingStyle:string="2rem";

@@ -7,6 +7,7 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/core/services/user.service';
 import { paginationState } from 'src/app/core/models/pagination/pagination';
 import { FormBuilder } from '@angular/forms';
+import { IAccount } from '../../models/IAccount';
 
 
 @Component({
@@ -30,7 +31,13 @@ export class ViewListOfUsersComponent implements OnInit {
   filterForm
 
   constructor(private headerService: HeaderService, private translate: TranslateService, private router: Router, private userInformation: UserService,private fb:FormBuilder) { }
+  users_List: IAccount[] = [];
 
+  getUsersList(){
+    this.userInformation.getUsersList().subscribe(response => {
+      this.users_List = response;
+    })
+  }
   ngOnInit(): void {
     this.initForm()
 
@@ -44,6 +51,7 @@ export class ViewListOfUsersComponent implements OnInit {
     );
     this.cities = this.userInformation.cities;
     this.usersList = this.userInformation.usersList;
+    this.getUsersList();
   }
 
   onTableDataChange(event: paginationState) {
@@ -59,7 +67,6 @@ export class ViewListOfUsersComponent implements OnInit {
 
         formGroup[item] =[]
       })
-      console.log(formGroup);
       return formGroup
     })
 
