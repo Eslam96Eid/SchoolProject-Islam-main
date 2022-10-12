@@ -103,7 +103,7 @@ private setRegionSchoolsChartData(): void {
         chartData.schoolCountInCentralRegion,
         chartData.schoolCountInSharjahCity
       ],
-      backgroundColor: ["#CD578A", "#5CD0DF", "#F8C073" , "#ffffff"]},
+      backgroundColor: ["#CD578A", "#5CD0DF", "#F8C073" , "#fefefe"]},
     ]
   };
 }
