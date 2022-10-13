@@ -146,7 +146,14 @@ this.getRoleList();
     this.isUnique = 0;
 
   }
-
-
+  listOfRoles : IRole[] = [];
+  listOfName : Array<string> ;
+  onChange(event: any ) {
+    this.listOfName = [];
+    event.value.forEach(element=>{
+      this.listOfName.push(element.name);
+      console.log(this.listOfName);
+    })
+}
 
 }
