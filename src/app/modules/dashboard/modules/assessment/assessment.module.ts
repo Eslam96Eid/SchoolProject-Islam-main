@@ -7,12 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../../../shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { PrimngModule } from '../../../primng/primng.module';
 import { EditNewAssessmentComponent } from './components/edit-new-assessment/edit-new-assessment.component';
 import { AssessmentsListComponent } from './components/assessments-list/assessments-list.component';
-import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -27,9 +26,10 @@ import { CardModule } from 'primeng/card';
     FontAwesomeModule,
     PrimngModule,
    TranslateModule,
-   SharedModule,
+    SharedModule,
     ToastrModule,
-    CardModule
+    PrimngModule
+
   ]
 })
 export class AssessmentModule { }
