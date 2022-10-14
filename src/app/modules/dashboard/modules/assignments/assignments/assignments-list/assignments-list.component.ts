@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { faAngleRight, faAngleLeft, faHouse, faSearch, faFilter, faHome } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 import { SortEvent } from 'primeng/api';
-import { IHeader, paginationState } from 'src/app/core/Models';
+import { IAssesment, IHeader, paginationState } from 'src/app/core/Models';
 import { HeaderService } from 'src/app/core/services/header-service/header.service';
+import { AssessmentService } from '../../../assessment/service/assessment.service';
+
 
 @Component({
   selector: 'app-assignments-list',
@@ -23,12 +25,13 @@ export class AssignmentsListComponent implements OnInit {
   tableSize: number = 7;
   first = 0
   rows = 4
+  isLoaded = false;
 
   assignmentsList: any[] = [
     {
       "id": "1000",
       "code": "f230fh0g3",
-      "name": "Bamboo Watch",
+      "name": "Bamboo Watchsssss",
       "description": "Product Description",
       "image": "bamboo-watch.jpg",
       "price": 65,
@@ -128,10 +131,33 @@ export class AssignmentsListComponent implements OnInit {
 
   };
 
-  constructor(private headerService: HeaderService, private translate: TranslateService, private router: Router) { }
+  constructor(
+     private headerService: HeaderService,
+     private translate: TranslateService,
+     private router: Router,
+     private assignmentservice : AssessmentService) {    }
+
+  assignmentList: IAssesment[] = [];
+  search='';
+  sortby='';
+  pageNum =1;
+  pageSize=50;
+  sortColumn='';
+  sortDir='';
+
+  getAssignmentList() {
+    this.assignmentservice.getAssignmentList(this.search, this.sortby, this.pageNum, this.pageSize, this.sortColumn, this.sortDir).subscribe(response => {
+      this.assignmentList = response?.data;
+      this.isLoaded = true;
+    })
+  }
+
+  pageChanged(event: any) {
+    this.pageNum = event.page;
+  }
 
   ngOnInit(): void {
-
+    this.getAssignmentList();
     this.headerService.Header.next(
       {
         'breadCrump': [
