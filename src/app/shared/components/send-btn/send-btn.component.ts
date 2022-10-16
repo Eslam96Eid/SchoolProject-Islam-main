@@ -3,6 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/core/services/user.service';
+import { AssessmentService } from 'src/app/modules/dashboard/modules/assessment/service/assessment.service';
+import { Iassignments } from 'src/app/modules/dashboard/modules/assignments/assignments/model/Iassignments';
+import { IuploadAssignment } from 'src/app/modules/dashboard/modules/assignments/assignments/model/IuploadAssignment';
 import { IAccountAddOrEdit } from 'src/app/modules/dashboard/modules/user-information/models/IAccountAddOrEdit';
 
 @Component({
@@ -12,23 +15,44 @@ import { IAccountAddOrEdit } from 'src/app/modules/dashboard/modules/user-inform
 })
 export class SendBtnComponent implements OnInit {
   @Input('route') routeUrl='';
+  @Input('typeOfAdd') typeOfAdd='';
   @Input('content') content:FormGroup;
   @Input('backGroundColor') backGroundColor='';
   plusIcon = faPlus;
   checkIcon = faCheck;
 
-  accountModel : IAccountAddOrEdit= <IAccountAddOrEdit>{};;
+  accountModel : IAccountAddOrEdit= <IAccountAddOrEdit>{};
+  assignmentModel : IuploadAssignment= <IuploadAssignment>{};
 
 
 
-
-  constructor(private _router: ActivatedRoute,private router: Router,private route:ActivatedRoute , private userService : UserService) { }
+  constructor(private _router: ActivatedRoute,private router: Router,private route:ActivatedRoute , private userService : UserService,
+    private assignmentService : AssessmentService) { }
 
   ngOnInit(): void {
    
   }
   goToAddNew()
   {
+    let typeOfAdd = this.typeOfAdd.toString();
+    switch(typeOfAdd) { 
+      case 'AddOrEditUser': { 
+        this.AddOrEditAccount();
+         break; 
+      } 
+      case 'uploadAssignment': { 
+        this.UploadAssignment();
+         break; 
+      } 
+      default: { 
+        
+         break; 
+      } 
+     
+   } 
+   this.router.navigate([this.routeUrl],{relativeTo:this.route});
+  }
+  AddOrEditAccount(){
     let id = this._router.snapshot.paramMap.get('userId');
     if(id == null){
       debugger
@@ -85,6 +109,28 @@ export class SendBtnComponent implements OnInit {
        console.log(res);
       });
     }
+  }
+
+  UploadAssignment(){
+    this.assignmentModel.arabicName = this.content.value.ExamName ;
+    this.assignmentModel.englishName= this.content.value.ExamName ;
+    let _examDuration = `00:${this.content.value.ExamDuration}:00 `;
+    this.assignmentModel.examduration = _examDuration; 
+    this.assignmentModel.examShowTime = "00:08:00";
+    const date = new Date(this.content.value.ExamDate);
+    this.assignmentModel.examShowDate= date.toISOString().slice(0,10); ;
+    this.assignmentModel.examStatus=1;
+    this.assignmentModel.gradeId = this.content.value.grades.id;
+    this.assignmentModel.subjectId= this.content.value.subjects.id;
+    this.assignmentModel.curriculumId= this.content.value.curriculum.id;
+
+    console.log(this.assignmentModel);
+
+    this.assignmentService.AddAssignment(this.assignmentModel).subscribe(res => {
+      console.log(res);
+     });
+  }
+  goToCancle(){
     this.router.navigate([this.routeUrl],{relativeTo:this.route});
   }
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { AssessmentService } from 'src/app/modules/dashboard/modules/assessment/service/assessment.service';
 import { FileEnum } from '../../enums/file/file.enum';
 
 @Component({
@@ -27,7 +28,7 @@ export class TableCaptionComponent implements OnInit, OnDestroy {
 
   searchInput = new FormControl('')
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder, private assignmentservice : AssessmentService) { }
 
 
   ngOnInit(): void {
@@ -51,9 +52,11 @@ export class TableCaptionComponent implements OnInit, OnDestroy {
   }
 
   onFilterActivated(){
+    debugger;
+    console.log(this.searchInput.value);
+    console.log(this.formControls);
     this.showFilterModel=!this.showFilterModel
-    this.onFilter.emit()
-    console.log('adkusayldlsa7uidh');
+    this.onFilter.emit();
 
   }
 

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs';
 import { HttpHandlerService } from 'src/app/core/services/http-handler.service';
 import { IRate } from '../components/edit-new-assessment/edit-new-assessment.model';
+import { IuploadAssignment } from '../../assignments/assignments/model/IuploadAssignment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,51 @@ export class AssessmentService {
     });
   }
 
+  GetCurriculumList(keyword:string ,sortby:string ,page :number , pagesize :number , sortcolumn:string , sortdirection:string) {
+    let params = new HttpParams();
+    if(page !== null && pagesize !== null ){
+      params = params.append('keyword' , keyword.toString());
+      params = params.append('sortby' , sortby.toString());
+      params = params.append('page' , page.toString());
+      params = params.append('pagesize' , pagesize.toString());
+      params = params.append('sortcolumn' , sortcolumn.toString());
+      params = params.append('sortdirection' , sortdirection.toString());
+    }
+    return this._http.get<any>(`${this.baseUrl+'/Curriculum'}`, {observe:'response' , params}).pipe(
+      map(response => {
+         return response.body ;
+      })
+    )
+  }
+
+  GetSchoolsList(curriculumId:number) {
+    debugger
+    let params = new HttpParams();
+    if(curriculumId !== null && curriculumId !== undefined ){
+      params = params.append('curriculumId' , curriculumId.toString());
+      return this._http.get<any>(`${this.baseUrl+'/School'}`, {observe:'response' , params}).pipe(
+        map(response => {
+           return response.body ;
+        })
+      )
+    }else{
+      return this._http.get<any>(`${this.baseUrl+'/School'}`, {observe:'response'}).pipe(
+        map(response => {
+           return response.body ;
+        })
+      )
+    }
+ 
+  }
+
+  GetGradeList(): Observable<any> {
+    return this._http.get<any>(`${this.baseUrl}` + `/Grade`);
+  }
+
+  GetSubjectList(): Observable<any> {
+    return this._http.get<any>(`${this.baseUrl}` + `/Subject`);
+  }
+ 
   getAssignmentList(keyword:string ,sortby:string ,page :number , pagesize :number , sortcolumn:string , sortdirection:string) {
     let params = new HttpParams();
     if(page !== null && pagesize !== null ){
@@ -49,5 +95,7 @@ export class AssessmentService {
       })
     )
   }
-
+  AddAssignment(data: IuploadAssignment): Observable<any> {
+    return this._http.post<any>(`${this.baseUrl}/Exam`, data);
+  }
 }

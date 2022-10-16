@@ -1,3 +1,17 @@
+<div class="caption">
+    <!-- Serach and Filter Button -->
+    <div class="col-8  caption__filter caption__filter--actions">
+        <div class="myInput myInput--full myInput--search p-input-icon-right ms-auto">
+            <i class="pi pi-search fs-3 "></i>
+            <input class="input" [(ngModel)]="searchKey" (keyup)="applyFilter()" type="text" pInputText placeholder="{{'shared.Search...'|translate}}" />
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <!-- -----BreadCrumb-- -->
 
 <!-- -------------- -->
@@ -9,11 +23,14 @@
     <p-table #dt [value]="assignmentList" [paginator]="true" [(rows)]="rows" [(first)]="first" sortMode="multiple">
 
         <!-- Table Caption -->
-        <ng-template pTemplate="caption">
+        <!-- <ng-template pTemplate="caption">
 
-            <app-table-caption [filterFormControls]="['Assignment Name','School Name','gradeName.ar','curriculum']"></app-table-caption>
+            <app-table-caption [filterFormControls]="['dashboard.Assignments.Assignment Name',
+            'dashboard.Assignments.School Name',
+            'dashboard.Assignments.Class',
+            'dashboard.Assignments.curriculum']"></app-table-caption>
 
-        </ng-template>
+        </ng-template> -->
 
         <ng-template pTemplate="header">
             <tr>
@@ -41,7 +58,7 @@
                 <td>{{product.gradeName.ar}}</td>
                 <td>{{product.curriculmName.ar}}</td>
                 <td>{{product.subjectName.ar}}</td>
-                <td>{{product.examShowDate}}</td>
+                <td>{{product.examShowDate | date:"MM/dd/yyyy"}}</td>
                 <td>{{product.examStatus}}</td>
                 <td>
                     <div class="d-flex align-items-center gap-4">

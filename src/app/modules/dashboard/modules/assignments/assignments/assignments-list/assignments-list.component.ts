@@ -138,15 +138,12 @@ export class AssignmentsListComponent implements OnInit {
      private assignmentservice : AssessmentService) {    }
 
   assignmentList: IAssesment[] = [];
-  search='';
-  sortby='';
+
   pageNum =1;
   pageSize=50;
-  sortColumn='';
-  sortDir='';
-
-  getAssignmentList() {
-    this.assignmentservice.getAssignmentList(this.search, this.sortby, this.pageNum, this.pageSize, this.sortColumn, this.sortDir).subscribe(response => {
+ 
+  getAssignmentList(search='' ,sortby='', pageNum=1,pageSize=100,sortColumn='' ,sortDir='') {
+    this.assignmentservice.getAssignmentList(search,sortby,pageNum,pageSize,sortColumn, sortDir).subscribe(response => {
       this.assignmentList = response?.data;
       this.isLoaded = true;
     })
@@ -192,8 +189,15 @@ export class AssignmentsListComponent implements OnInit {
     this.rows = event.rows
 
   }
-
-
+  searchKey: string = '';
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+  applyFilter() {
+    let searchData = this.searchKey.trim().toLowerCase();
+    this.getAssignmentList(searchData , '' ,1, 50, '', "asc");
+  }
 
 
 }
