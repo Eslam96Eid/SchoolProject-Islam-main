@@ -41,11 +41,15 @@ import { AuthInterceptor } from './interseptors/AuthInterceptor';
 
     ChartModule,
     // SharedModule,
-
-    LayoutModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-left'
+      positionClass: 'toast-bottom-right',
+      tapToDismiss: false,
+      timeOut: 1000
     }),
+    LayoutModule,
+    // ToastrModule.forRoot({
+    //   positionClass: 'toast-bottom-left'
+    // }),
     DTransalteModule.forRoot(),
 
   ],
