@@ -36,12 +36,17 @@
             <tr>
                 <th pSortableColumn="name.ar">
                     <p-sortIcon field="name.ar"></p-sortIcon>{{'dashboard.Assignments.Assignment Name' | translate}}</th>
+
+                    <th pSortableColumn="gradeName.ar">
+                        <p-sortIcon field="gradeName.ar"></p-sortIcon>{{'dashboard.Assignments.Class' | translate}}</th>
+
+                        <th pSortableColumn="curriculmName.ar">
+                            <p-sortIcon field="curriculmName.ar"></p-sortIcon>{{'dashboard.Assignments.curriculum' | translate}} </th>
+
                 <th pSortableColumn="schoolName">
-                    <p-sortIcon field="schoolName"></p-sortIcon>{{'dashboard.Assignments.School Name' | translate}}</th>
-                <th pSortableColumn="gradeName.ar">
-                    <p-sortIcon field="gradeName.ar"></p-sortIcon>{{'dashboard.Assignments.Class' | translate}}</th>
-                <th pSortableColumn="curriculmName.ar">
-                    <p-sortIcon field="curriculmName.ar"></p-sortIcon>{{'dashboard.Assignments.curriculum' | translate}} </th>
+                    <p-sortIcon field="schoolName"></p-sortIcon>{{'dashboard.Assignments.schoolCount' | translate}}</th>
+          
+            
                 <th pSortableColumn="subjectName.ar">
                     <p-sortIcon field="subjectName.ar"></p-sortIcon>{{'dashboard.Assignments.Subject' | translate}}</th>
                 <th pSortableColumn="examShowDate">
@@ -54,16 +59,15 @@
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>{{product.name.ar}}</td>
-                <td>{{product.schoolName}}</td>
                 <td>{{product.gradeName.ar}}</td>
                 <td>{{product.curriculmName.ar}}</td>
+                <td>{{product.schoolCount}}</td>
                 <td>{{product.subjectName.ar}}</td>
                 <td>{{product.examShowDate | date:"MM/dd/yyyy"}}</td>
-                <td>{{product.examStatus}}</td>
                 <td>
                     <div class="d-flex align-items-center gap-4">
 
-                        <div [ngClass]="product.category=='Female'?'alerting success':'alerting danger'">{{product.category|translate}}</div>
+                        <div [ngClass]="product.examStatus=='Available'?'alerting success':'alerting danger'">{{product.examStatus|translate}}</div>
 
                     </div>
                 </td>

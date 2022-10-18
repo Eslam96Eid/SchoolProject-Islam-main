@@ -98,4 +98,12 @@ export class AssessmentService {
   AddAssignment(data: IuploadAssignment): Observable<any> {
     return this._http.post<any>(`${this.baseUrl}/Exam`, data);
   }
+  _headers = new HttpHeaders({
+    'Accept': 'application/json',
+    'zumo-api-version': '2.0.0',
+    
+});
+  public onFileUpload(_file : any ): Observable<any>{
+    return this._http.post<any>(this.baseUrl + '/Upload/Upload-blobstorage?type=exam',_file,{headers:this._headers});
+  }
 }

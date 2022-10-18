@@ -9,6 +9,9 @@ import { AssignmentRoutingModule } from './assignments-routing.module';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from "primeng/card";
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 
 
 
@@ -26,8 +29,11 @@ import { CardModule } from "primeng/card";
     FileUploadModule,
     TranslateModule,
     CardModule,
-    SharedModule
+    SharedModule,
+    MessageModule,
+    MessagesModule
 
-  ]
+  ],
+  providers:[MessageService]
 })
 export class AssignmentsModule { }

@@ -718,7 +718,8 @@
             "School Number": "رقم المدرسة",
             "Write School Number": "أكتب رقم المدرسة",
             "Region": "المنطقة",
-            "Select Region": "أختر المنطقة"
+            "Select Region": "أختر المنطقة",
+            "schoolCount":"عدد المدارس"
         },
 
 

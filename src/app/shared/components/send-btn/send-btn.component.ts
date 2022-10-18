@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,6 +25,7 @@ export class SendBtnComponent implements OnInit {
   accountModel : IAccountAddOrEdit= <IAccountAddOrEdit>{};
   assignmentModel : IuploadAssignment= <IuploadAssignment>{};
 
+  currentDate = new Date();
 
 
   constructor(private _router: ActivatedRoute,private router: Router,private route:ActivatedRoute , private userService : UserService,
@@ -118,13 +120,21 @@ export class SendBtnComponent implements OnInit {
     this.assignmentModel.examduration = _examDuration; 
     this.assignmentModel.examShowTime = "00:08:00";
     const date = new Date(this.content.value.ExamDate);
-    this.assignmentModel.examShowDate= date.toISOString().slice(0,10); ;
-    this.assignmentModel.examStatus=1;
+    this.assignmentModel.examShowDate= date.toISOString().slice(0,10);
     this.assignmentModel.gradeId = this.content.value.grades.id;
-    this.assignmentModel.subjectId= this.content.value.subjects.id;
+   // this.assignmentModel.subjectId= this.content.value.subjects.id;
+    this.assignmentModel.subjectId= 4;
     this.assignmentModel.curriculumId= this.content.value.curriculum.id;
 
-    console.log(this.assignmentModel);
+    if (this.assignmentModel.examShowDate.slice(0, 10) === formatDate(this.currentDate, 'yyyy-MM-dd', 'en-US')) {
+      this.assignmentModel.examStatus=1;
+    } else {
+      this.assignmentModel.examStatus=2;
+    }
+
+    
+
+
 
     this.assignmentService.AddAssignment(this.assignmentModel).subscribe(res => {
       console.log(res);

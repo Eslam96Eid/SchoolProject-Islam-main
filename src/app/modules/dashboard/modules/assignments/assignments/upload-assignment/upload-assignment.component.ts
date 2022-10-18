@@ -13,6 +13,7 @@ import { Icurriculum } from '../model/Icurriculum';
 import { Ischool } from '../model/Ischool';
 import { Igrade } from '../model/Igrade';
 import { Isubject } from '../model/Isubject';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-upload-assignment',
   templateUrl: './upload-assignment.component.html',
@@ -38,7 +39,8 @@ export class UploadAssignmentComponent implements OnInit {
   curriculums: Icurriculum[] = [];
 
 
-  constructor(private headerService: HeaderService, private router: Router, private translate: TranslateService, private fb: FormBuilder, private assignmentService: AssessmentService) {
+  constructor(private headerService: HeaderService, private router: Router, private translate: TranslateService, private fb: FormBuilder, private assignmentService: AssessmentService,
+    private messageService: MessageService) {
     this.assignmentFormGrp = fb.group({
       curriculum: [''],
       schools:[''],
@@ -66,11 +68,11 @@ export class UploadAssignmentComponent implements OnInit {
 		})
   }
 
-  getSchoolList() {
-    this.assignmentService.GetSchoolsList(this.curriculumId).subscribe(response => {
-      this.schools = response.data;
-    })
-  }
+  // getSchoolList() {
+  //   this.assignmentService.GetSchoolsList(this.curriculumId).subscribe(response => {
+  //     this.schools = response.data;
+  //   })
+  // }
 
 
   getCurriculumList() {
@@ -86,7 +88,7 @@ export class UploadAssignmentComponent implements OnInit {
   
   ngOnInit(): void {
     this.getCurriculumList();
-    this.getSchoolList();
+   // this.getSchoolList();
     this.getGradeList();
     this.getSubjectList();
     this.headerService.Header.next(
@@ -108,8 +110,24 @@ export class UploadAssignmentComponent implements OnInit {
 
   onChange(event: any ) {
     this.curriculumId = event.value.id;
-    this.getSchoolList();
+    // this.getSchoolList();
   
+}
+uploadedFiles: any[] = [];
+onUpload(event) {
+  for(let file of event.files) {
+      this.uploadedFiles.push(file);
+  }
+  this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+}
+
+public onFileUpload(data: { files: File }): void {
+    const fd = new FormData();
+    const file = data.files[0];
+    fd.append('file', file, file.name);
+    this.assignmentService.onFileUpload(fd).subscribe(res => {
+      console.log(res);
+    })
 }
  
 }
