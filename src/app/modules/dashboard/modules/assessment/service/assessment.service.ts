@@ -13,11 +13,14 @@ import { IuploadAssignment } from '../../assignments/assignments/model/IuploadAs
 export class AssessmentService {
   baseUrl = environment.serverUrl;
   private headers = new HttpHeaders();
-  constructor(private http: HttpHandlerService,private _http: HttpClient) { this.headers = this.headers.set('content-type', 'application/json');
+  constructor(private http: HttpHandlerService,private _http: HttpClient) {
+     this.headers = this.headers.set('content-type', 'application/json');
   this.headers = this.headers.set('Accept', 'application/json');}
+
 
   getRates(): Observable<any> {
     return this.http.get('/Rate');
+
   }
 
   addRate(data: IRate): Observable<any> {
@@ -68,7 +71,7 @@ export class AssessmentService {
         })
       )
     }
- 
+
   }
 
   GetGradeList(): Observable<any> {
@@ -78,7 +81,7 @@ export class AssessmentService {
   GetSubjectList(): Observable<any> {
     return this._http.get<any>(`${this.baseUrl}` + `/Subject`);
   }
- 
+
   getAssignmentList(keyword:string ,sortby:string ,page :number , pagesize :number , sortcolumn:string , sortdirection:string) {
     let params = new HttpParams();
     if(page !== null && pagesize !== null ){
