@@ -77,7 +77,7 @@ export class AddEditUserInformationComponent implements OnInit {
         email: this.account.email,
         password :  this.account.password,
         nickName : this.account.nickName,
-        identityNumber : this.account.nationalityId,
+        identityNumber : this.account.emiratesIdNumber,
         privateRole : this.account.roles,
         userStatus : this.account.isActive
       })

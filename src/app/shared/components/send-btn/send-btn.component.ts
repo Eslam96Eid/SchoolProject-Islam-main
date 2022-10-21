@@ -62,7 +62,7 @@ export class SendBtnComponent implements OnInit {
       this.accountModel.fullName = this.content.value.fullName;
       this.accountModel.phoneNumber = this.content.value.phoneNumber;
       this.accountModel.email = this.content.value.email;
-      this.accountModel.emiratesIdNumber = "7894562";
+      //this.accountModel.emiratesIdNumber = "7894562";
       this.accountModel.arabicSurname = "";
       this.accountModel.englishSurname =this.content.value.fullName;
       this.accountModel.jobTitle = "test";
@@ -75,38 +75,44 @@ export class SendBtnComponent implements OnInit {
       this.accountModel.scope= "SPEA";
       this.accountModel.isActive= true;
       this.accountModel.nickName = this.content.value.nickName;
-      this.accountModel.nationalityId =this.content.value.identityNumber;
+      this.accountModel.emiratesIdNumber =this.content.value.identityNumber;
       this.accountModel.password = this.content.value.password;
       this.accountModel.status = 1;
-      this.accountModel.roles =[2];
-      console.log( this.accountModel);
+      this.accountModel.roles = [];
+      console.log(this.content.value.privateRole);
+      this.content.value.privateRole.forEach(element => {
+        this.accountModel.roles.push(Number(element.id));
+      });
       this.userService.AddAccount(this.accountModel).subscribe(res => {
       console.log(res);
      });
     }
     else{
       debugger
-       this.accountModel.id =Number(id);
-       this.accountModel.fullName = this.content.value.fullName;
-       this.accountModel.phoneNumber = this.content.value.phoneNumber;
-       this.accountModel.email = this.content.value.email;
-       this.accountModel.emiratesIdNumber = "7894562";
-       this.accountModel.arabicSurname = "";
-       this.accountModel.englishSurname = "";
-       this.accountModel.jobTitle = null;
-       this.accountModel.gender = null;
-       this.accountModel.birthDate = "",
-       this.accountModel.emiratesIdPath = "";
-       this.accountModel.employeeIdNumber = "";
-       this.accountModel.permissionToEnterScore = true;
-       this.accountModel.relativeRelationId= null;
-       this.accountModel.scope= "SPEA";
-       this.accountModel.isActive= false;
-       this.accountModel.nickName = this.content.value.nickName;
-       this.accountModel.nationalityId =this.content.value.identityNumber;
-       this.accountModel.password = this.content.value.password;
-       this.accountModel.status = 1;
-       this.accountModel.roles = [2];
+      this.accountModel.id =Number(id);
+      this.accountModel.fullName = this.content.value.fullName;
+      this.accountModel.phoneNumber = this.content.value.phoneNumber;
+      this.accountModel.email = this.content.value.email;
+      this.accountModel.arabicSurname = "";
+      this.accountModel.englishSurname = "";
+      this.accountModel.jobTitle = null;
+      this.accountModel.gender = null;
+      this.accountModel.birthDate = "",
+      this.accountModel.emiratesIdPath = "";
+      this.accountModel.employeeIdNumber = "";
+      this.accountModel.permissionToEnterScore = true;
+      this.accountModel.relativeRelationId= null;
+      this.accountModel.scope= "SPEA";
+      this.accountModel.isActive= false;
+      this.accountModel.nickName = this.content.value.nickName;
+      this.accountModel.nationalityId =0;
+      this.accountModel.emiratesIdNumber =this.content.value.identityNumber;
+      this.accountModel.password = this.content.value.password;
+      this.accountModel.status = 1;
+       this.accountModel.roles = [];
+       this.content.value.privateRole.forEach(element => {
+        this.accountModel.roles.push(Number(element.id));
+      });
        this.userService.EditAccount(this.accountModel).subscribe(res => {
        console.log(res);
       });
@@ -132,10 +138,8 @@ export class SendBtnComponent implements OnInit {
       this.assignmentModel.examStatus=2;
     }
 
-    
-
-
-
+    this.assignmentModel.examPdfPath = this.content.value.examPdfPath ;
+    this.assignmentModel.examAudioPath = this.content.value.examAudioPath ;
     this.assignmentService.AddAssignment(this.assignmentModel).subscribe(res => {
       console.log(res);
      });
