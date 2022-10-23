@@ -17,6 +17,9 @@ import { IRole } from '../../models/IRole';
   styleUrls: ['./edit-new-user-information.component.scss']
 })
 export class AddEditUserInformationComponent implements OnInit {
+  listOfRoles : IRole[] = [];
+  listOfRoleswhenEdit : IRole[] = [];
+  listOfName : Array<string> =[];
   value1: string;
   usersList: IUser[] = [];
   UserListItem:IUser={} as IUser;
@@ -43,7 +46,6 @@ export class AddEditUserInformationComponent implements OnInit {
     mainTitle: { main: this.translate.instant('dashboard.surveys.createNewSurvey') },
   }
   constructor(private fb: FormBuilder,
-    private router: Router,
     private _router: ActivatedRoute,
     private layoutService: LayoutService,
     private headerService: HeaderService,
@@ -71,6 +73,13 @@ export class AddEditUserInformationComponent implements OnInit {
   getUserById(){
     this.userInformation.getUsersById(Number(this._router.snapshot.paramMap.get('userId'))).subscribe(response => {
       this.account = response;
+      console.log( this.account)
+      this.account.roles.forEach(element=>{
+        this.userInformation.GetRoleById(element).subscribe(res=>{
+          this.onChange(res);
+          console.log(res);
+        })
+      })
       this.userFormGrp.patchValue({
         fullName: this.account.fullName,
         phoneNumber: this.account.phoneNumber,
@@ -78,7 +87,6 @@ export class AddEditUserInformationComponent implements OnInit {
         password :  this.account.password,
         nickName : this.account.nickName,
         identityNumber : this.account.emiratesIdNumber,
-        privateRole : this.account.roles,
         userStatus : this.account.isActive
       })
     })
@@ -87,7 +95,6 @@ export class AddEditUserInformationComponent implements OnInit {
   getRoleList(){
     this.userInformation.GetRoleList().subscribe(response => {
 		  this.roles = response;
-      console.log(this.roles);
 		})
   }
   ngOnInit(): void {
@@ -178,13 +185,23 @@ export class AddEditUserInformationComponent implements OnInit {
     this.isUnique = 0;
 
   }
-  listOfRoles : IRole[] = [];
-  listOfName : Array<string> ;
+ 
   onChange(event: any ) {
-    this.listOfName = [];
-    event.value.forEach(element=>{
-      this.listOfName.push(element.name);
-      console.log(this.listOfName);
-    })
-}
+
+    if(event.id != undefined)
+    {
+      this.listOfName.push(event.name);
+      this.listOfRoleswhenEdit.push(event);
+      this.userFormGrp.patchValue({
+        privateRole : this.listOfRoleswhenEdit
+      })
+    } 
+    else 
+    {
+      this.listOfName = [];
+      event.value.forEach(element=>{
+        this.listOfName.push(element.name);
+      })
+    }
+    }
 }

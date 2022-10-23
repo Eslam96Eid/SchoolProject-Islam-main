@@ -114,9 +114,15 @@ this.getRoleList();
     if(e.checked)
     {
       this.isShown=true;
+      this.userFormGrp.patchValue({
+        userStatus: false
+      })
     }
     else{
       this.isShown=false;
+      this.userFormGrp.patchValue({
+        userStatus: true
+      })
     }
   }
   CheckUniqueemail(e) {

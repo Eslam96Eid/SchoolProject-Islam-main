@@ -138,7 +138,7 @@
                             <!-- <label for="PID8" class="label"><b>{{'dashboard.UserInformation.User Status'|translate}}</b></label>
                             <p-dropdown [options]="cities" formControlName="userStatus" placeholder="{{'shared.Effective'|translate}}" class="form-control" appValidation></p-dropdown> -->
                             <div>
-                                <div [hidden]="userStatus.valid || userStatus.untouched">
+                                <div [hidden]="userStatus.valid || userStatus.untouched" >
                                     <small *ngIf="userStatus.errors?.['required']" id="helpId" class="form-text text-muted d-block  " class="alert-danger">
                                 {{'shared.This Field is Required'|translate}}
                                  <fa-icon  [icon]=" exclamationIcon"  class="dangericon ms-1 "></fa-icon>
