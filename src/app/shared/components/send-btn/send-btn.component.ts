@@ -59,56 +59,66 @@ export class SendBtnComponent implements OnInit {
   AddOrEditAccount(){
     let id = this._router.snapshot.paramMap.get('userId');
     if(id == null){
-      debugger
-      //this.accountModel.id =Number(id);
+      this.accountModel.claim = '';
+      this.accountModel.hasAzureADAccount = false;
       this.accountModel.fullName = this.content.value.fullName;
       this.accountModel.phoneNumber = this.content.value.phoneNumber;
       this.accountModel.email = this.content.value.email;
-      this.accountModel.emiratesIdNumber = "7894562";
       this.accountModel.arabicSurname = "";
       this.accountModel.englishSurname =this.content.value.fullName;
       this.accountModel.jobTitle = "test";
-      this.accountModel.gender = 0;
-      this.accountModel.birthDate = "",
+      this.accountModel.gender = '';
+      this.accountModel.birthDate = "2022-10-23T09:09:09.825Z",
       this.accountModel.emiratesIdPath = "";
       this.accountModel.employeeIdNumber = "";
       this.accountModel.permissionToEnterScore = true;
       this.accountModel.relativeRelationId= 0;
       this.accountModel.scope= "SPEA";
-      this.accountModel.isActive= true;
+      this.accountModel.isActive= this.content.value.userStatus;
       this.accountModel.nickName = this.content.value.nickName;
-      this.accountModel.nationalityId =this.content.value.identityNumber;
+      this.accountModel.emiratesIdNumber =this.content.value.identityNumber;
       this.accountModel.password = this.content.value.password;
-      this.accountModel.status = 1;
-      this.accountModel.roles =[2];
-      console.log( this.accountModel);
+      this.accountModel.status = 'Active';
+      this.accountModel.roles = [];
+      this.accountModel.nationalityId = '';
+      this.content.value.privateRole.forEach(element => {
+        this.accountModel.roles.push(Number(element.id));
+      });
       this.userService.AddAccount(this.accountModel).subscribe(res => {
       console.log(res);
      });
     }
     else{
-      debugger
-       this.accountModel.id =Number(id);
-       this.accountModel.fullName = this.content.value.fullName;
-       this.accountModel.phoneNumber = this.content.value.phoneNumber;
-       this.accountModel.email = this.content.value.email;
-       this.accountModel.emiratesIdNumber = "7894562";
-       this.accountModel.arabicSurname = "";
-       this.accountModel.englishSurname = "";
-       this.accountModel.jobTitle = null;
-       this.accountModel.gender = null;
-       this.accountModel.birthDate = "",
-       this.accountModel.emiratesIdPath = "";
-       this.accountModel.employeeIdNumber = "";
-       this.accountModel.permissionToEnterScore = true;
-       this.accountModel.relativeRelationId= null;
-       this.accountModel.scope= "SPEA";
-       this.accountModel.isActive= false;
-       this.accountModel.nickName = this.content.value.nickName;
-       this.accountModel.nationalityId =this.content.value.identityNumber;
-       this.accountModel.password = this.content.value.password;
-       this.accountModel.status = 1;
-       this.accountModel.roles = [2];
+      this.accountModel.id =Number(id);
+      this.accountModel.claim = '';
+      this.accountModel.hasAzureADAccount = false;
+      this.accountModel.fullName = this.content.value.fullName;
+      this.accountModel.phoneNumber = this.content.value.phoneNumber;
+      this.accountModel.email = this.content.value.email;
+      this.accountModel.arabicSurname = "";
+      this.accountModel.englishSurname =this.content.value.fullName;
+      this.accountModel.jobTitle = "test";
+      this.accountModel.gender = '';
+      this.accountModel.birthDate = "2022-10-23T09:09:09.825Z",
+      this.accountModel.emiratesIdPath = "";
+      this.accountModel.employeeIdNumber = "";
+      this.accountModel.permissionToEnterScore = true;
+      this.accountModel.relativeRelationId= 0;
+      this.accountModel.scope= "SPEA";
+      this.accountModel.isActive= this.content.value.userStatus;
+      this.accountModel.nickName = this.content.value.nickName;
+      this.accountModel.emiratesIdNumber =this.content.value.identityNumber;
+      this.accountModel.password = this.content.value.password;
+      this.accountModel.status = 'Active';
+      this.accountModel.roles = [];
+      this.accountModel.nationalityId = '';
+      this.content.value.privateRole.forEach(element => {
+        this.accountModel.roles.push(Number(element.id));
+      });
+      this.userService.AddAccount(this.accountModel).subscribe(res => {
+      console.log(res);
+     });
+
        this.userService.EditAccount(this.accountModel).subscribe(res => {
        console.log(res);
       });

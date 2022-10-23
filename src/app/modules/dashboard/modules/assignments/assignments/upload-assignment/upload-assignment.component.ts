@@ -52,6 +52,8 @@ export class UploadAssignmentComponent implements OnInit {
       ExamDuration:[''],
       ExamDate:[''],
       ExamTime:[''],
+      examPdfPath: [''],
+      examAudioPath: ['']
     });
   }
 
@@ -123,12 +125,18 @@ onUpload(event) {
   this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
 }
 
-public onFileUpload(data: { files: File }): void {
+  public onFileUpload(data: { files: File }): void {
     const fd = new FormData();
     const file = data.files[0];
     fd.append('file', file, file.name);
     this.assignmentService.onFileUpload(fd).subscribe(res => {
-      console.log(res);
+      let typePath = res.url.split('.').pop();
+      if (typePath === 'jpg' || typePath === 'png')
+       { this.assignmentFormGrp.value.examPdfPath = res.url; }
+      else if (typePath === 'pdf')
+       { this.assignmentFormGrp.value.examPdfPath = res.url; }
+      else if (typePath === 'audio')
+       { this.assignmentFormGrp.value.examAudioPath = res.url; }
     })
 }
 
