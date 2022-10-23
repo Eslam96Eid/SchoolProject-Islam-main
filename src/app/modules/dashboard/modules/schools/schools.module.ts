@@ -1,4 +1,5 @@
-import { ChartsComponent } from './components/school-list/charts/charts.component';
+import { SchoolChartsComponent } from './components/school-list/school-charts/school-charts.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -31,7 +32,7 @@ import { NgChartsModule  } from 'ng2-charts';
     DivisionStudentsComponent,
     AbsenceRecordComponent,
     DegreesComponent,
-    ChartsComponent
+
   ],
   imports: [
     CommonModule,
@@ -44,7 +45,7 @@ import { NgChartsModule  } from 'ng2-charts';
     DashboardSharedModule,
     QrCodeModule,
     NgChartsModule,
-    
+
 
   ]
 })

@@ -3,8 +3,7 @@
     <div class="col-8  caption__filter caption__filter--actions">
         <div class="myInput myInput--full myInput--search p-input-icon-right ms-auto">
             <i class="pi pi-search fs-3 "></i>
-            <input class="input" [(ngModel)]="searchKey" (keyup)="applyFilter()" type="text" pInputText
- placeholder="{{'shared.Search...'|translate}}" />
+            <input class="input" [(ngModel)]="searchKey" (keyup)="applyFilter()" type="text" pInputText placeholder="{{'shared.Search...'|translate}}" />
         </div>
     </div>
 </div>
@@ -17,8 +16,7 @@
 
 <!-- -------------- -->
 
-<app-add-btn [backGroundColor]="'btn-bg-primary'"
-    [route]="'/dashboard/performance-managment/assignments/upload-assignment'" [content]="'breadcrumb.Addassignment'">
+<app-add-btn [backGroundColor]="'btn-primary'" [route]="'/dashboard/performance-managment/assignments/upload-assignment'" [content]="'breadcrumb.Addassignment'">
 </app-add-btn>
 
 <!-- ------Table------- -->
@@ -58,14 +56,13 @@
                     <p-sortIcon field="subjectName.ar"></p-sortIcon>{{'dashboard.Assignments.Subject' | translate}}
                 </th>
                 <th pSortableColumn="examShowDate">
-                    <p-sortIcon field="examShowDate"></p-sortIcon>{{'dashboard.Assignments.Exam Date And Time' |
-                    translate}}
+                    <p-sortIcon field="examShowDate"></p-sortIcon>{{'dashboard.Assignments.Exam Date And Time' | translate}}
                 </th>
                 <th pSortableColumn="examStatus">
                     <p-sortIcon field="examStatus"></p-sortIcon> {{'dashboard.Assignments.Status' | translate}}
                 </th>
                 <th></th>
-                <th></th>
+
 
             </tr>
         </ng-template>
@@ -76,7 +73,7 @@
                 <td>{{product.curriculmName.ar}}</td>
                 <td>{{product.schoolCount}}</td>
                 <td>{{product.subjectName.ar}}</td>
-                <td>{{product.examShowDate | date:"MM/dd/yyyy"}}</td>
+                <td>{{product.examShowDate | date:"MM/dd/yyyy"}}{{product.ExamDuration}}</td>
                 <td>
                     <div class="d-flex align-items-center gap-4">
 
@@ -86,14 +83,32 @@
                     </div>
                 </td>
                 <td>
-                    <button class="ui-shadow-5" type="button" pButton icon="fa-file-o" iconPos="left" label="Pdf"
-                        (click)="exportPdf(product.examPdfPath)" style="float:left"></button>
+                    <div class="dropdown">
+                        <div class="" id="dropdownMenuButton1" data-bs-toggle="dropdown">
+                            <fa-icon class="fs-4" [icon]="faEllipsisVertical"></fa-icon>
+                        </div>
+                        <ul class="dropdown-menu shadow-lg " aria-labelledby="dropdownMenuButton1">
+                            <li class="dropdown-item">
+                                <a class="link" (click)="exportPdf(product.examPdfPath)">
+                                    <img src="assets/images/shared/download.svg" alt="">
+                                    <p>{{'shared.downloadfile'|translate}}</p>
+                                </a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a class="link" (click)="exportAudio(product.examAudioPath)">
+
+                                    <img src="assets/images/shared/download.svg" alt="">
+                                    <p>{{'shared.downloadaudio'|translate}}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <button class="ui-shadow-5" type="button" pButton icon="fa-file-o" iconPos="left" label="Pdf" style="float:left"></button> -->
                 </td>
 
-                <td>
-                    <button class="ui-shadow-5" type="button" pButton icon="fa-file-o" iconPos="left" label="Audio"
-                        (click)="exportAudio(product.examAudioPath)" style="float:left"></button>
-                </td>
+                <!-- <td>
+                    <button class="ui-shadow-5" type="button" pButton icon="fa-file-o" iconPos="left" label="Audio" (click)="exportAudio(product.examAudioPath)" style="float:left"></button>
+                </td> -->
 
             </tr>
         </ng-template>
@@ -103,8 +118,7 @@
 
                 <td [attr.colspan]="20" [att.rowspan]="10">
 
-                    <app-informative-block title="{{'emptyList.Assignments List is empty' |translate}}"
-                        src="assets/images/empty-list/empty-list.svg"></app-informative-block>
+                    <app-informative-block title="{{'emptyList.Assignments List is empty' |translate}}" src="assets/images/empty-list/empty-list.svg"></app-informative-block>
 
                 </td>
 

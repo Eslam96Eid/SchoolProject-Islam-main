@@ -1,13 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { IUser } from 'src/app/core/Models/iuser';
 import { HeaderService } from 'src/app/core/services/header-service/header.service';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-import { UserService } from 'src/app/core/services/user.service';
-import { paginationState } from 'src/app/core/models/pagination/pagination';
+
+
 import { FormBuilder } from '@angular/forms';
 import { IAccount } from '../../models/IAccount';
+import { IHeader, paginationState } from 'src/app/core/Models';
+import { UserService } from 'src/app/core/services/user/user.service';
+import { Paginator } from 'primeng/paginator';
+import { paginationInitialState } from 'src/app/core/classes/pagination';
 
 
 @Component({
@@ -31,20 +35,42 @@ export class ViewListOfUsersComponent implements OnInit {
   showFilterModel=false
 
   filterForm
+  @ViewChild('pagination') pagination: Paginator;
+  page: number = 1;
 
-  constructor(private headerService: HeaderService, private translate: TranslateService, private router: Router, private userInformation: UserService,private fb:FormBuilder) { }
+  pagesArrOptions = []
+  totalItems: number = 1;
+  currentActivePage = { page: 1 }
+  paginationState: paginationState = { ...paginationInitialState }
+
+  pageNum = 1;
+  pageSize = 50;
+  componentHeaderData: IHeader = {
+    'breadCrump': [
+      { label: this.translate.instant('sideBar.educationalSettings.children.Subjects Assessments'), routerLink: '/dashboard/educational-settings/assessments/assements-list/', routerLinkActiveOptions: { exact: true } }],
+
+  };
+
+
+  constructor(private headerService: HeaderService, private translate: TranslateService,
+    private router: Router, private userInformation: UserService,private fb:FormBuilder) { }
   users_List: IAccount[] = [];
 
-  getUsersList(search = '', sortby = '', pageNum = 1, pageSize = 100){
+  getUsersList(search = '', sortby = '', pageNum = 1, pageSize = 100, sortColumn = '', sortDir = ''){
     this.userInformation.getUsersList(search, sortby, pageNum, pageSize).subscribe(response => {
       this.users_List = response?.data;
       this.isLoaded = true;
       console.log(  this.users_List )
     })
   }
-  ngOnInit(): void {
-    this.initForm()
+  pageChanged(event: any) {
+    this.pageNum = event.page;
+  }
 
+
+  ngOnInit(): void {
+    this.initForm();
+    this.getUsersList();
     this.headerService.Header.next(
       {
         'breadCrump': [
@@ -53,9 +79,8 @@ export class ViewListOfUsersComponent implements OnInit {
         ],
       }
     );
-    this.cities = this.userInformation.cities;
-    this.usersList = this.userInformation.usersList;
-    this.getUsersList();
+
+
   }
 
   onTableDataChange(event: paginationState) {
@@ -83,6 +108,15 @@ export class ViewListOfUsersComponent implements OnInit {
     // return formGroup
   }
 
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    let searchData = this.searchKey.trim().toLowerCase();
+    this.getUsersList(searchData, '', 1, 50, '', "asc");
+  }
 
   submitForm(){
     this.showFilterModel = false
@@ -92,13 +126,21 @@ export class ViewListOfUsersComponent implements OnInit {
     this.showFilterModel = false
 
   }
-  onSearchClear() {
-    this.searchKey = '';
-    this.applyFilter();
-  }
-  applyFilter() {
-    debugger
-    let searchData = this.searchKey.trim().toLowerCase();
-    this.getUsersList(searchData, '', 1, 50);
-  }
+
+
 }
+
+
+
+
+
+// getAssignmentList(search = '', sortby = '', pageNum = 1, pageSize = 100, sortColumn = '', sortDir = '') {
+//   this.assignmentservice.getAssignmentList(search, sortby, pageNum, pageSize, sortColumn, sortDir).subscribe(response => {
+
+//     this.assignmentList = response?.data;
+//     this.totalItems = this.assignmentList.length;
+//     this.isLoaded = true;
+//   })
+
+// }
+

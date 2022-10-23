@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs';
-import { HttpHandlerService } from 'src/app/core/services/http-handler.service';
+
 
 import { IuploadAssignment } from '../../assignments/assignments/model/IuploadAssignment';
+import { HttpHandlerService } from 'src/app/core/services/http/http-handler.service';
 
 @Injectable({
   providedIn: 'root'

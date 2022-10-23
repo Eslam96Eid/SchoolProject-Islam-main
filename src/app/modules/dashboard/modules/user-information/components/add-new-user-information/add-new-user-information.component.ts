@@ -16,7 +16,7 @@ import { IRole } from '../../models/IRole';
 export class AddNewUserInformationComponent implements OnInit {
 
   value1: string;
-
+  RoleSelected: IRole;
   @Input('content') content='';
   isShown:boolean=false;
   checked:boolean=true;
@@ -33,7 +33,9 @@ export class AddNewUserInformationComponent implements OnInit {
   typeInputConfirmPass: string = 'password';
   isUnique: number = 0;
   urlParameter: number=0;
-  constructor(private fb: FormBuilder, private router: Router, private headerService: HeaderService, private translate: TranslateService, private userInformation: UserService) {
+  constructor(private fb: FormBuilder, private router: Router,
+     private headerService: HeaderService, private translate: TranslateService,
+     private userInformation: UserService) {
     const formOptions: AbstractControlOptions = {
       validators: passwordMatchValidator
 
