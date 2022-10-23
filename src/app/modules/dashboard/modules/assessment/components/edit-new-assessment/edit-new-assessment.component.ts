@@ -12,7 +12,6 @@ import { HeaderService } from 'src/app/core/services/header-service/header.servi
 import { AssessmentService } from '../../service/assessment.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
 
-
 @Component({
   selector: 'app-edit-new-assessment',
   templateUrl: './edit-new-assessment.component.html',
@@ -37,8 +36,8 @@ export class EditNewAssessmentComponent implements OnInit {
   ];
   private readonly assementsListUrl = '/dashboard/educational-settings/assessments/assements-list';
 
-  get rateScores(): FormArray {
-    return this.assesmentFormGrp.get('rateScores') as FormArray
+  get rateScores(): FormArray { 
+    return this.assesmentFormGrp.get('rateScores') as FormArray 
   }
 
   get assesmentName() {

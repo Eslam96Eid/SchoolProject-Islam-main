@@ -1,3 +1,4 @@
+import { AssignmentServiceService } from './../../service/assignment-service.service';
 import { Component, EventEmitter, HostBinding, HostListener, OnInit, Output } from '@angular/core';
 import { faAngleLeft, faCalendar, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,7 +9,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AssessmentService } from '../../../assessment/service/assessment.service';
+
 import { Icurriculum } from '../model/Icurriculum';
 import { Ischool } from '../model/Ischool';
 import { Igrade } from '../model/Igrade';
@@ -39,7 +40,8 @@ export class UploadAssignmentComponent implements OnInit {
   curriculums: Icurriculum[] = [];
 
 
-  constructor(private headerService: HeaderService, private router: Router, private translate: TranslateService, private fb: FormBuilder, private assignmentService: AssessmentService,
+  constructor(private headerService: HeaderService, private router: Router,
+     private translate: TranslateService, private fb: FormBuilder, private assignmentService: AssignmentServiceService,
     private messageService: MessageService) {
     this.assignmentFormGrp = fb.group({
       curriculum: [''],
@@ -82,10 +84,10 @@ export class UploadAssignmentComponent implements OnInit {
   }
 
 //#endregion "My Region"
- 
 
- 
-  
+
+
+
   ngOnInit(): void {
     this.getCurriculumList();
    // this.getSchoolList();
@@ -111,7 +113,7 @@ export class UploadAssignmentComponent implements OnInit {
   onChange(event: any ) {
     this.curriculumId = event.value.id;
     // this.getSchoolList();
-  
+
 }
 uploadedFiles: any[] = [];
 onUpload(event) {
@@ -129,5 +131,5 @@ public onFileUpload(data: { files: File }): void {
       console.log(res);
     })
 }
- 
+
 }

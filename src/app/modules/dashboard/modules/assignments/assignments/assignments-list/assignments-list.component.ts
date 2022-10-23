@@ -1,3 +1,4 @@
+import { AssignmentServiceService } from './../../service/assignment-service.service';
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -6,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SortEvent } from 'primeng/api';
 import { IAssesment, IHeader, paginationState } from 'src/app/core/Models';
 import { HeaderService } from 'src/app/core/services/header-service/header.service';
-import { AssessmentService } from '../../../assessment/service/assessment.service';
+
 import { Iassignments } from '../model/Iassignments';
 
 
@@ -38,7 +39,7 @@ export class AssignmentsListComponent implements OnInit {
     private headerService: HeaderService,
     private translate: TranslateService,
     private router: Router,
-    private assignmentservice: AssessmentService) { }
+    private assignmentservice: AssignmentServiceService) { }
 
   assignmentList: Iassignments[] = [];
 
@@ -46,7 +47,7 @@ export class AssignmentsListComponent implements OnInit {
   pageSize=50;
   getAssignmentList(search= '', sortby ='', pageNum = 1, pageSize = 100, sortColumn = '', sortDir = '') {
     this.assignmentservice.getAssignmentList(search, sortby, pageNum, pageSize, sortColumn, sortDir).subscribe(response => {
-      
+
       this.assignmentList = response?.data;
       this.isLoaded = true;
     })
