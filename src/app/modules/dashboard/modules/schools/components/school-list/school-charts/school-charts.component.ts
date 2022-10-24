@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { HeaderService } from 'src/app/core/services/header-service/header.service';
 import { ExportService } from 'src/app/shared/services/export/export.service';
 import { LoaderService } from 'src/app/shared/services/loader/loader.service';
-import { SharedService } from 'src/app/shared/services/shared/shared.service';
+// import { SharedService } from 'src/app/shared/services/shared/shared.service';
 import { SchoolsService } from '../../../services/schools/schools.service';
 
 import { SchoolChartsModel } from './school-chart.models';
@@ -25,7 +25,7 @@ export class SchoolChartsComponent implements OnInit {
     private headerService: HeaderService,
     private exportService: ExportService,
 
-    private sharedService: SharedService,
+    // private sharedService: SharedService,
 
   ) {
 
