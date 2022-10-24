@@ -9,9 +9,11 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder } from '@angular/forms';
 import { IAccount } from '../../models/IAccount';
 import { IHeader, paginationState } from 'src/app/core/Models';
-import { UserService } from 'src/app/core/services/user/user.service';
+
 import { Paginator } from 'primeng/paginator';
-import { paginationInitialState } from 'src/app/core/classes/pagination';
+import { paginationInitialState } from 'src/app/core/classes/filtration';
+import { UserService } from 'src/app/core/services/user.service';
+
 
 
 @Component({
